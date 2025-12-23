@@ -1,64 +1,85 @@
 package com.addressbook;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class AddressBook {
 
     private ArrayList<Contact> contacts = new ArrayList<>();
 
-    // Add contact
-    public void addContact(Contact c) {
-        contacts.add(c);
-        System.out.println("Contact added successfully!");
+    // UC1 - Add Contact
+    public void addContact(Contact contact) {
+        contacts.add(contact);
+        System.out.println("Contact added successfully.");
     }
 
-    // Show all contacts
-    public void showAllContacts() {
-        if (contacts.isEmpty()) {
-            System.out.println("No contacts available.");
-            return;
-        }
-        System.out.println("\n===== All Contacts =====");
-        for (Contact c : contacts) {
-            System.out.println(c);
-        }
-    }
-
-    // Edit contact by first name
+    // UC3 - Edit Contact
     public void editContact(String firstName, Scanner sc) {
         boolean found = false;
 
-        for (Contact contact : contacts) {
-            if (contact.getFirstName().equalsIgnoreCase(firstName)) {
+        for (Contact c : contacts) {
+            if (c.getFirstName().equalsIgnoreCase(firstName)) {
                 found = true;
-                System.out.println("Contact Found: " + contact);
 
                 System.out.print("Enter new Address: ");
-                contact.setAddress(sc.nextLine());
+                c.setAddress(sc.nextLine());
 
                 System.out.print("Enter new City: ");
-                contact.setCity(sc.nextLine());
+                c.setCity(sc.nextLine());
 
                 System.out.print("Enter new State: ");
-                contact.setState(sc.nextLine());
+                c.setState(sc.nextLine());
 
                 System.out.print("Enter new Zip: ");
-                contact.setZip(sc.nextLine());
+                c.setZip(sc.nextLine());
 
-                System.out.print("Enter new Phone Number: ");
-                contact.setPhoneNumber(sc.nextLine());
+                System.out.print("Enter new Phone: ");
+                c.setPhoneNumber(sc.nextLine());
 
                 System.out.print("Enter new Email: ");
-                contact.setEmail(sc.nextLine());
+                c.setEmail(sc.nextLine());
 
-                System.out.println("Contact updated successfully!");
+                System.out.println("Contact updated successfully.");
                 break;
             }
         }
 
         if (!found) {
             System.out.println("Contact not found.");
+        }
+    }
+
+    // UC4 - Delete Contact
+    public void deleteContact(String firstName) {
+        Iterator<Contact> iterator = contacts.iterator();
+        boolean found = false;
+
+        while (iterator.hasNext()) {
+            Contact c = iterator.next();
+            if (c.getFirstName().equalsIgnoreCase(firstName)) {
+                iterator.remove();
+                found = true;
+                System.out.println("Contact deleted successfully.");
+                break;
+            }
+        }
+
+        if (!found) {
+            System.out.println("Contact not found.");
+        }
+    }
+
+    // Show All Contacts
+    public void showAllContacts() {
+        if (contacts.isEmpty()) {
+            System.out.println("No contacts available.");
+            return;
+        }
+
+        System.out.println("\n----- Contact List -----");
+        for (Contact c : contacts) {
+            System.out.println(c);
         }
     }
 }
