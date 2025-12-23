@@ -22,9 +22,19 @@ public class AddressBookMain {
 
             switch (choice) {
 
+                // UC5 - Add multiple contacts
                 case 1:
-                    Contact contact = createContact(sc);
-                    addressBook.addContact(contact);
+                    while (true) {
+                        Contact contact = createContact(sc);
+                        addressBook.addContact(contact);
+
+                        System.out.print("Do you want to add another contact? (yes/no): ");
+                        String choiceAdd = sc.nextLine();
+
+                        if (!choiceAdd.equalsIgnoreCase("yes")) {
+                            break;
+                        }
+                    }
                     break;
 
                 case 2:
